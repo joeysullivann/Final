@@ -1,28 +1,42 @@
 <head>
-  <title>cars</title>
+  <title>Cars</title>
 </head>
 
 <body>
   <h1>Welcome to Cars!</h1>
-
-  {{> cars}}
+  {{> addCars}} <br>
+  {{> searchCars}} <br>
+  {{#each cars}}
+    {{> car}}
+  {{/each}}
+  {{test}}
 </body>
 
-<template name="cars">
-  {{> addCars}}
-  <ul>
-  {{#each cars}}
-      <li>{{name}}</li>
-  {{/each}}
-  </ul>
+<template name="car">
+  <div style="border: dashed 10px blue;">
+    <h3>{{color}} {{make}} {{model}}</h3>
+    <p>made in {{year}}</p>
+  </div>
+</template>
+
+<template name="searchCars">
+    <form id="searchCars">
+        Search for cars: <br>
+        <input type="text" placeholder="Search for car by make..." name="makeSearch"> <br>
+        <input type="text" placeholder="Search for car by model..." name="modelSearch"> <br>
+        <input type="text" placeholder="Search for car by year..." name="yearSearch"> <br>
+        <input type="text" placeholder="Search for car by color..." name="colorSearch"> <br>
+        <input type="submit" id="searchForCar" value="searchForCar">
+    </form>
 </template>
 
 <template name="addCars">
-    <form>
-        Add cars to list:
-        <input type="text" placeholder="Type a car make here..." name="carMake">
-        <input type="text" placeholder="Type a car model here..." name="carModel">
-        <input type="text" placeholder="Type a car year here..." name="carYear">
-        <input type="text" placeholder="Type a car color here..." name="carColor">
+    <form id="addCars">
+        Add cars to list: <br>
+        <input type="text" placeholder="Add car make..." name="make"> <br>
+        <input type="text" placeholder="Add car model..." name="model"> <br>
+        <input type="text" placeholder="Add car year..." name="year"> <br>
+        <input type="text" placeholder="Add car color..." name="color"> <br>
+        <input type="submit" id="addCarsToList" value="addCarsToList">
     </form>
 </template>
