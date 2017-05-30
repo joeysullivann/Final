@@ -1,0 +1,28 @@
+<head>
+  <title>cars</title>
+</head>
+
+<body>
+  <h1>Welcome to Cars!</h1>
+
+  {{> cars}}
+</body>
+
+<template name="cars">
+  {{> addCars}}
+  <ul>
+  {{#each cars}}
+      <li>{{name}}</li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="addCars">
+    <form>
+        Add cars to list:
+        <input type="text" placeholder="Type a car make here..." name="carMake">
+        <input type="text" placeholder="Type a car model here..." name="carModel">
+        <input type="text" placeholder="Type a car year here..." name="carYear">
+        <input type="text" placeholder="Type a car color here..." name="carColor">
+    </form>
+</template>
