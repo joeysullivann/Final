@@ -3,7 +3,7 @@
 </head>
 
 <body>
-  <h1>Welcome to Cars!</h1>
+  <h1>Welcome to Cars.com!</h1>
   {{> addCars}} <br>
   {{> searchCars}} <br>
   {{#each cars}}
@@ -13,9 +13,11 @@
 </body>
 
 <template name="car">
-  <div style="border: dashed 10px blue;">
+  <div style="border: solid black; width:600px;height:300px;">
+    <img src={{image}} style="width:300px;height:200px;"><br>
     <h3>{{color}} {{make}} {{model}}</h3>
-    <p>made in {{year}}</p>
+    <p>Made in {{year}}</p>
+
   </div>
 </template>
 

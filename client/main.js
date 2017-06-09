@@ -36,24 +36,27 @@ Template.searchCars.events({
     	Meteor.call('searchForCars', make, model, year, color, function(err,res){ 
     		if (res.length > 0) {
     			//set initial result
-    			var makeFound = JSON.stringify(res[0]['make']);
-    			var modelFound = JSON.stringify(res[0]['model']);
-    			var yearFound = JSON.stringify(res[0]['year']);
-    			var colorFound = JSON.stringify(res[0]['color']);
-    			Session.set('cars', [{make:makeFound, model:modelFound, year:yearFound, color:colorFound}]);
+    			var makeFound = JSON.stringify(res[0]['Make']);
+    			var modelFound = JSON.stringify(res[0]['Model']);
+    			var yearFound = JSON.stringify(res[0]['Year']);
+    			var colorFound = JSON.stringify(res[0]['Color']);
+    			var imageFound = res[0]['Image'];
+    			Session.set('cars', [{make:makeFound, model:modelFound, year:yearFound, color:colorFound, image:imageFound}]);
 
     			//set remaining result
     			var sessionData = Session.get('cars');
     			for (var i = res.length - 1; i >= 1; i--) {
-    				var makeFound = JSON.stringify(res[i]['make']);
-	    			var modelFound = JSON.stringify(res[i]['model']);
-	    			var yearFound = JSON.stringify(res[i]['year']);
-	    			var colorFound = JSON.stringify(res[i]['color']);
-					sessionData.push({
+    				var makeFound = JSON.stringify(res[i]['Make']);
+	    			var modelFound = JSON.stringify(res[i]['Model']);
+	    			var yearFound = JSON.stringify(res[i]['Year']);
+	    			var colorFound = JSON.stringify(res[i]['Color']);
+					var imageFound = res[i]['Image'];
+    				sessionData.push({
 						make: makeFound,
 						model: modelFound,
 						year: yearFound,
-						color: colorFound
+						color: colorFound,
+						image: imageFound
 					});
     			}
     			Session.set('cars', sessionData);
@@ -81,3 +84,34 @@ Template.addCars.events({
 		return false;
 	}
 });
+Template.body.created = function(){
+	Meteor.call('allCars', function(err,res){ 
+		if (res.length > 0) {
+			//set initial result
+			var makeFound = JSON.stringify(res[0]['Make']);
+			var modelFound = JSON.stringify(res[0]['Model']);
+			var yearFound = JSON.stringify(res[0]['Year']);
+			var colorFound = JSON.stringify(res[0]['Color']);
+			var imageFound = res[0]['Image'];
+			Session.set('cars', [{make:makeFound, model:modelFound, year:yearFound, color:colorFound, image:imageFound}]);
+
+			//set remaining result
+			var sessionData = Session.get('cars');
+			for (var i = res.length - 1; i >= 1; i--) {
+				var makeFound = JSON.stringify(res[i]['Make']);
+    			var modelFound = JSON.stringify(res[i]['Model']);
+    			var yearFound = JSON.stringify(res[i]['Year']);
+    			var colorFound = JSON.stringify(res[i]['Color']);
+				var imageFound = res[i]['Image'];
+    			sessionData.push({
+					make: makeFound,
+					model: modelFound,
+					year: yearFound,
+					color: colorFound,
+					image: imageFound
+				});
+			}
+			Session.set('cars', sessionData);
+		}
+	});
+}
